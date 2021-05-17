@@ -20,7 +20,7 @@ Flutter project for practice.
 
 **VehicleListItem**
 
-- takes Vehicle as required input
+- takes Vehicle (lib/model/vehicle.dart) as required input
 - height: 120.0
 - width: fill space
 - InkWell (splashColor: Colors.yellow, highlightColor: Colors.yellow)
@@ -83,8 +83,8 @@ Flutter project for practice.
 
 <img src='./screenshots/03_vehicle_screen.png' width='350'>
 
-- Requires vehicle upon construction
-- Requires vehicleState upon construction
+- Requires vehicle (lib/model/vehicle.dart) upon construction
+- Requires vehicleState (lib/model/vehicle_state.dart) upon construction
 
 **AppBar**
 
@@ -110,3 +110,21 @@ Flutter project for practice.
 
 - use the shrinkwrap property on the ListView otherwise it won't render
 - Think about whether you want to use a static ListView instead or a ListView.builder
+
+# Unit Tests
+
+## Task 4: GarageDataProvider
+
+- implement according to spec in lib/data_provider/garage_data_provider.dart
+
+## Task 5: GarageRepository
+
+- implement according to spec in lib/repository/garage_repository.dart
+
+## Task 6: VehicleStateDataProvider
+
+- implement according to spec in lib/data_provider/vehicle_state_data_provider.dart
+
+## Task 7: VehicleStateRepository
+
+- implement according to spec in lib/repository/vehicle_state_repository.dart
