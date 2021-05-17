@@ -1,0 +1,4 @@
+enum EngineStatus {
+  ON,
+  OFF,
+}

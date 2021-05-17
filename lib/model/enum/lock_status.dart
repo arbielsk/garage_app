@@ -1,0 +1,4 @@
+enum LockStatus {
+  LOCKED,
+  OPEN,
+}
