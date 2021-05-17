@@ -9,7 +9,9 @@ class MaterialWidgetWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: child,
+        body: Center(
+          child: child,
+        ),
       ),
     );
   }

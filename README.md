@@ -30,22 +30,23 @@ Flutter project for practice.
 
 - size: 60
 - horizontal space between icon and display name, brand model specifier: 16.0
+- Icon should be Anchor
 
 **Display Name**
 
-- text orientation left
+- text aligned left
 - style: headline4
 
 **Brand Model Specifier**
 
-- text orientation left
+- text aligned left
 - style: subtitle2
 
 **Display Name** top + **brand model specifier** bottom should be aligned with **icon** top and bottom
 
 **Vin**
 
-- text orientation right
+- text aligned right
 - style: caption
 
 **TIP**:
