@@ -36,6 +36,10 @@ Flutter project for practice.
 
 - text aligned left
 - style: headline4
+  - fontSize
+  - weight
+  - family
+  - color
 
 **Brand Model Specifier**
 
