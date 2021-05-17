@@ -1,16 +1,102 @@
 # garage_app
 
-A new Flutter project.
+Flutter project for practice.
 
-## Getting Started
+# Widget Tests
 
-This project is a starting point for a Flutter application.
+## Task 1: VehicleListItem
 
-A few resources to get you started if this is your first Flutter project:
+<img src='./screenshots/01_vehicle_list_item.png' width='350'>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+**VehicleListItem**
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- takes Vehicle as required input
+- height: 120.0
+- width: fill space
+- InkWell (splashColor: Colors.yellow, highlightColor: Colors.yellow)
+- Padding: 8.0 all sides
+
+**Icon**
+
+- size: 60
+- horizontal space between icon and display name, brand model specifier: 16.0
+
+**Display Name**
+
+- text orientation left
+- style: headline4
+
+**Brand Model Specifier**
+
+- text orientation left
+- style: subtitle2
+
+**Display Name** top + **brand model specifier** bottom should be aligned with **icon** top and bottom
+
+**Vin**
+
+- text orientation right
+- style: caption
+
+**TIP**:
+
+- use Row and Column for alignment, not text properties
+
+## Task 2: GarageScreen
+
+<img src='./screenshots/02_garage_screen.png' width='350'>
+
+**AppBar**
+
+- title: "Garage"
+- backgroundColor: Colors.blueGrey
+
+**Stack with 2 layers**
+
+- **back layer**:
+
+  - ListView.builder with 10 VehicleListItems (set the text values according to their index - no need to test this mock data)
+  - full height, full width
+  - scrollable
+
+- **front layer**
+  - widget to add vehicles
+  - height 120
+  - width: fill
+  - padding 8.0
+  - TextField
+  - ElevatedButton "Add vehicle" under TextField
+  - ElevatedButton has padding 8.0
+  - background color is Colors.blueGrey[50]
+
+## Task 3: VehicleScreen
+
+<img src='./screenshots/03_vehicle_screen.png' width='350'>
+
+- Requires vehicle upon construction
+- Requires vehicleState upon construction
+
+**AppBar**
+
+- title: "Vehicle"
+- backgroundColor: Colors.blueGrey
+
+**Body**
+
+- VehicleListItem as first item of body
+
+- ListView as second item of body
+  - contains new Widget of type VehicleStateListItem
+  - render a VehicleStateListItem for each VehicleState member
+
+**VehicleStateListItem**
+
+- padding 16
+- displays value of one vehicleState Member
+- text orientation: center
+- text style: subtitle1
+
+**TIPS**
+
+- use the shrinkwrap property on the ListView otherwise it won't render
+- Think about whether you want to use a static ListView instead or a ListView.builder
