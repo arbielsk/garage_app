@@ -30,11 +30,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Container(
-          color: Colors.green,
-          child: Center(
-            child: VehicleListItem(
-              vehicle: _vehicle,
+        home: Scaffold(
+          body: Container(
+            color: Colors.green,
+            child: Center(
+              child: VehicleListItem(
+                vehicle: _vehicle,
+              ),
             ),
           ),
         ));
