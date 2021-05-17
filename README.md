@@ -2,6 +2,16 @@
 
 Flutter project for practice.
 
+# Testing
+
+## What are pros and cons of tests?
+
+## What types of tests are there?
+
+## What are different approaches to writing tests? Pros & cons?
+
+## What are the pros and cons of TDD?
+
 # Widget Tests
 
 ## Task 1: VehicleListItem
