@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:garage_app/model/enum/ignition_status.dart';
-import 'package:garage_app/model/enum/lock_status.dart';
-import 'package:garage_app/model/enum/motor_status.dart';
 import 'package:garage_app/model/vehicle.dart';
-import 'package:garage_app/model/vehicle_state.dart';
-import 'package:garage_app/widget/vehicle_screen.dart';
 
 class VehicleListItem extends StatelessWidget {
   final Vehicle vehicle;
