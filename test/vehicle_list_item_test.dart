@@ -16,45 +16,47 @@ void main() {
     child: _vehicleListItem,
   );
 
+  Future<void> _initializeWidget(WidgetTester tester) async {
+    await tester.pumpWidget(_wrappedVehicleListItem);
+    await tester.pumpAndSettle();
+  }
+
   group('VehicleListItem', () {
     testWidgets('can be instantiated with a vehicle',
         (WidgetTester tester) async {
-      final widget = MaterialWidgetWrapper(
-        child: VehicleListItem(vehicle: _vehicle),
-      );
-      await tester.pumpWidget(widget);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
+      expect(find.byWidget(_vehicleListItem), findsOneWidget);
     });
 
     testWidgets('has height 120', (WidgetTester tester) async {
       final expectedWidgetHeight = 120.0;
 
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
 
-      final findVehicleListItem = find.byWidget(_vehicleListItem);
-      final vehicleListItemSize = tester.getSize(findVehicleListItem);
-      final vehicleListItemHeight = vehicleListItemSize.height;
-
-      expect(vehicleListItemHeight, expectedWidgetHeight);
+      expect(
+          tester
+              .getSize(
+                find.byWidget(_vehicleListItem),
+              )
+              .height,
+          expectedWidgetHeight);
     });
 
     testWidgets('fills the parents width', (WidgetTester tester) async {
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       // get widget width
       final findVehicleListItem = find.byWidget(_vehicleListItem);
-      final vehicleListItemSize = tester.getSize(findVehicleListItem);
-      final vehicleListItemWidth = vehicleListItemSize.width;
+      final vehicleListItemWidth = tester.getSize(findVehicleListItem).width;
 
       // get parent width
       final findParent = find.ancestor(
         of: findVehicleListItem,
         matching: find.byType(Center),
       );
-      final parentSize = tester.getSize(findParent);
-      final parentWidth = parentSize.width;
+      final parentWidth = tester.getSize(findParent).width;
 
       expect(vehicleListItemWidth, parentWidth);
     });
@@ -62,8 +64,8 @@ void main() {
     testWidgets('should have a padding of 8.0', (WidgetTester tester) async {
       final padding = 8.0;
 
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findVehicleListItem = find.byWidget(_vehicleListItem);
       final vehicleListItemSize = tester.getSize(findVehicleListItem);
@@ -79,8 +81,8 @@ void main() {
     });
 
     testWidgets('has InkWell', (WidgetTester tester) async {
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findInkWell = find.byType(InkWell);
 
@@ -90,8 +92,8 @@ void main() {
     testWidgets('splashColor is Colors.yellow', (WidgetTester tester) async {
       final splashColor = Colors.yellow;
 
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findInkWell = find.byType(InkWell);
 
@@ -104,8 +106,8 @@ void main() {
     testWidgets('highlightColor is Colors.yellow', (WidgetTester tester) async {
       final highlightColor = Colors.yellow;
 
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findInkWell = find.byType(InkWell);
 
@@ -119,8 +121,8 @@ void main() {
         (WidgetTester tester) async {
       final backgroundColor = Colors.white;
 
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findVehicleListItem = find.byWidget(_vehicleListItem);
       final findContainer = find.descendant(
@@ -133,8 +135,8 @@ void main() {
     });
 
     testWidgets('centers its content', (WidgetTester tester) async {
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findVehicleListItem = find.byWidget(_vehicleListItem);
       final findIcon = find.byType(Icon);
@@ -163,8 +165,8 @@ void main() {
     testWidgets('has horizontal space of 16.0 between icon and text',
         (WidgetTester tester) async {
       final horizontalSpacing = 16.0;
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findIcon = find.byType(Icon);
       final findDisplayName = find.text(_vehicle.displayName);
@@ -183,8 +185,8 @@ void main() {
     testWidgets('size is 60.0', (WidgetTester tester) async {
       final expectedIconSize = 60.0;
 
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findIcon = find.byType(Icon);
       final actualIconSize = tester.getSize(findIcon);
@@ -196,8 +198,8 @@ void main() {
     testWidgets('is anchor', (WidgetTester tester) async {
       final expectedIcon = Icons.anchor;
 
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findIcon = find.byType(Icon);
       final actualIcon = tester.firstWidget<Icon>(findIcon);
@@ -209,8 +211,8 @@ void main() {
   group('Display Name', () {
     testWidgets('text should be vehicle.displayName',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findText = find.text(_vehicle.displayName);
 
@@ -218,8 +220,8 @@ void main() {
     });
 
     testWidgets('should use headline4 style', (WidgetTester tester) async {
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findText = find.text(_vehicle.displayName);
       final actualWidget = tester.firstWidget<Text>(findText);
@@ -241,8 +243,8 @@ void main() {
 
   group('Brand Model Specifier', () {
     testWidgets('text should be vehicle.model', (WidgetTester tester) async {
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findText = find.text(_vehicle.model);
 
@@ -250,8 +252,8 @@ void main() {
     });
 
     testWidgets('should use headline4 style', (WidgetTester tester) async {
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findText = find.text(_vehicle.model);
       final actualWidget = tester.firstWidget<Text>(findText);
@@ -273,8 +275,8 @@ void main() {
 
   group('Vin label', () {
     testWidgets('text should be vehicle.vin', (WidgetTester tester) async {
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findText = find.text(_vehicle.vin);
 
@@ -282,8 +284,8 @@ void main() {
     });
 
     testWidgets('should use caption style', (WidgetTester tester) async {
-      await tester.pumpWidget(_wrappedVehicleListItem);
-      await tester.pumpAndSettle();
+      await _initializeWidget(tester);
+      ;
 
       final findText = find.text(_vehicle.vin);
       final actualWidget = tester.firstWidget<Text>(findText);
