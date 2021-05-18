@@ -12,8 +12,8 @@ class VehicleScreen extends StatelessWidget {
   static const _title = 'Vehicle';
   static const _appBarBackgroundColor = Colors.blueGrey;
 
-  VehicleState vehicleState;
-  Vehicle vehicle;
+  final VehicleState vehicleState;
+  final Vehicle vehicle;
   VehicleScreen({
     Key? key,
     required this.vehicleState,
