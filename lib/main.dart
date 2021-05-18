@@ -32,11 +32,17 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           body: Container(
+            width: double.infinity,
+            height: double.infinity,
             color: Colors.green,
-            child: Center(
-              child: VehicleListItem(
-                vehicle: _vehicle,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Flutter is amazing Flutter is amazing',
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
         ));

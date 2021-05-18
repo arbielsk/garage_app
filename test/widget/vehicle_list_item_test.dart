@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/widget/vehicle_list_item.dart';
 
-import 'util/material_widget_wrapper.dart';
+import '../test_util/material_widget_wrapper.dart';
 
 void main() {
   final _vehicle = Vehicle(

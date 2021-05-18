@@ -1,13 +1,13 @@
 import 'package:garage_app/data_provider/garage_data_provider.dart';
 
-class MockGarageDataProvider implements GarageDataProvider {
+class LocalGarageDataProvider implements GarageDataProvider {
   final Map<String, Map<String, dynamic>> vehicles = {};
 
   static const _vinKey = 'vin';
   static const _modelKey = 'model';
   static const _displayNameKey = 'displayName';
 
-  MockGarageDataProvider() {
+  LocalGarageDataProvider() {
     _initializeWithMockVehicles();
   }
 

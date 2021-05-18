@@ -1,9 +1,22 @@
+import 'package:garage_app/data_provider/garage_data_provider.dart';
 import 'package:garage_app/model/vehicle.dart';
 
 class GarageRepository {
-  // REQ 1: consume getOwnedVehicles from GarageDataProvider and transform to Vehicle
+  final GarageDataProvider _dataProvider;
+
+  GarageRepository(this._dataProvider);
+
   Future<List<Vehicle>> getOwnedVehicles() async {
-    throw UnimplementedError();
+    final List<Map<String, dynamic>> vehiclesMaps =
+        await _dataProvider.getOwnedVehicles();
+
+    final List<Vehicle> vehicles = vehiclesMaps
+        .map(
+          (vehicleMap) => Vehicle.fromMap(vehicleMap),
+        )
+        .toList();
+
+    return vehicles;
   }
 
   // REQ 1: addVehicle from GarageDataProvider.

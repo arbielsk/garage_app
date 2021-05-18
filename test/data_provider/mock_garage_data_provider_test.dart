@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:garage_app/data_provider/mock_garage_data_provider.dart';
+import 'package:garage_app/data_provider/local_garage_data_provider.dart';
 import 'package:garage_app/model/vehicle.dart';
 
 main() {
-  late MockGarageDataProvider provider;
+  late LocalGarageDataProvider provider;
   final vehicle = {
     'vin': 'ASDF1ASDF2ASDF310',
     'model': 'BMW Z8',
@@ -28,7 +28,7 @@ main() {
   };
 
   setUp(() {
-    provider = MockGarageDataProvider();
+    provider = LocalGarageDataProvider();
   });
   group('getOwnedVehicles', () {
     test('should initially return 5 mock vehicles', () async {
