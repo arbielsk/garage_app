@@ -63,18 +63,33 @@ void main() {
       },
     );
 
-    // blocTest(
-    //   'emits LoadVehiclesState, LoadVehicleSuccessState when receiving results from repository',
-    //   build: _initializeBloc,
-    //   seed: GarageBlocState () => LoadVehiclesFailState('some error message'),
-    //   act: (GarageBloc bloc) => bloc.add(LoadVehiclesEvent()),
-    //   expect: () => [
-    //     LoadVehiclesState(),
-    //     LoadVehiclesSuccessState(emptyVehicles),
-    //   ],
-    //   verify: (_) {
-    //     verify(repo.getOwnedVehicles()).called(1);
-    //   },
-    // );
+    blocTest(
+      'emits LoadVehiclesState, LoadVehicleSuccessState when receiving results from repository',
+      build: _initializeBloc,
+      seed: () =>
+          LoadVehiclesFailState('some error message') as GarageBlocState,
+      act: (GarageBloc bloc) => bloc.add(LoadVehiclesEvent()),
+      expect: () => [
+        LoadVehiclesState(),
+        LoadVehiclesSuccessState(emptyVehicles),
+      ],
+      verify: (_) {
+        verify(repo.getOwnedVehicles()).called(1);
+      },
+    );
+
+    blocTest(
+      'emits LoadVehiclesState, LoadVehicleSuccessState when receiving results from repository',
+      build: _initializeBloc,
+      seed: () => LoadVehiclesSuccessState(emptyVehicles) as GarageBlocState,
+      act: (GarageBloc bloc) => bloc.add(LoadVehiclesEvent()),
+      expect: () => [
+        LoadVehiclesState(),
+        LoadVehiclesSuccessState(emptyVehicles),
+      ],
+      verify: (_) {
+        verify(repo.getOwnedVehicles()).called(1);
+      },
+    );
   });
 }
