@@ -31,9 +31,9 @@ main() {
     provider = MockGarageDataProvider();
   });
   group('getOwnedVehicles', () {
-    test('should initially return 5 mock vehicles', () {
-      expect(provider.getOwnedVehicles().length, 5);
-      provider.getOwnedVehicles().forEach((element) {
+    test('should initially return 5 mock vehicles', () async {
+      expect((await provider.getOwnedVehicles()).length, 5);
+      (await provider.getOwnedVehicles()).forEach((element) {
         // required keys exist
         expect(element.keys.contains('vin'), true);
         expect(element.keys.contains('model'), true);
@@ -47,40 +47,42 @@ main() {
       });
     });
 
-    test('should be idempotent', () {
-      expect(provider.getOwnedVehicles(), provider.getOwnedVehicles());
+    test('should be idempotent', () async {
+      expect(
+          await provider.getOwnedVehicles(), await provider.getOwnedVehicles());
     });
   });
 
   group('addVehicle', () {
-    test('should add a vehicle to garage', () {
-      expect(provider.getOwnedVehicles().length, 5);
-      expect(provider.addVehicle(vehicle), true);
-      expect(provider.getOwnedVehicles().length, 6);
-      expect(provider.getOwnedVehicles().contains(vehicle), true);
+    test('should add a vehicle to garage', () async {
+      expect((await provider.getOwnedVehicles()).length, 5);
+      expect(await provider.addVehicle(vehicle), true);
+      expect((await provider.getOwnedVehicles()).length, 6);
+      expect((await provider.getOwnedVehicles()).contains(vehicle), true);
     });
 
-    test('should return false if input misses required key or value', () {
-      expect(provider.addVehicle(vehicleWithoutDisplayName), false);
-      expect(provider.addVehicle(vehicleWithoutModel), false);
-      expect(provider.addVehicle(vehicleWithoutVin), false);
+    test('should return false if input misses required key or value', () async {
+      expect(await provider.addVehicle(vehicleWithoutDisplayName), false);
+      expect(await provider.addVehicle(vehicleWithoutModel), false);
+      expect(await provider.addVehicle(vehicleWithoutVin), false);
     });
 
-    test('should not add vehicle if input misses required key or value', () {
-      provider.addVehicle(vehicleWithoutDisplayName);
-      provider.addVehicle(vehicleWithoutModel);
-      provider.addVehicle(vehicleWithoutVin);
+    test('should not add vehicle if input misses required key or value',
+        () async {
+      await provider.addVehicle(vehicleWithoutDisplayName);
+      await provider.addVehicle(vehicleWithoutModel);
+      await provider.addVehicle(vehicleWithoutVin);
 
-      expect(provider.getOwnedVehicles().length, 5);
+      expect((await provider.getOwnedVehicles()).length, 5);
     });
 
-    test('should return false if vin already exists', () {
-      expect(provider.addVehicle(existingVehicle), false);
+    test('should return false if vin already exists', () async {
+      expect((await provider.addVehicle(existingVehicle)), false);
     });
 
-    test('should not add vehicle if vin already exists', () {
-      provider.addVehicle(existingVehicle);
-      expect(provider.getOwnedVehicles().length, 5);
+    test('should not add vehicle if vin already exists', () async {
+      await provider.addVehicle(existingVehicle);
+      expect((await provider.getOwnedVehicles()).length, 5);
     });
   });
 }

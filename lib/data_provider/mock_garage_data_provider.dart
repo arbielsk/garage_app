@@ -45,7 +45,8 @@ class MockGarageDataProvider implements GarageDataProvider {
   }
 
   @override
-  bool addVehicle(Map<String, dynamic> vehicle) {
+  Future<bool> addVehicle(Map<String, dynamic> vehicle) async {
+    await Future.delayed(Duration(seconds: 1));
     if (!vehicle.keys.contains(_vinKey) || vehicle[_vinKey] == null)
       return false;
     if (!vehicle.keys.contains(_modelKey) || vehicle[_modelKey] == null)
@@ -58,7 +59,8 @@ class MockGarageDataProvider implements GarageDataProvider {
   }
 
   @override
-  List<Map<String, dynamic>> getOwnedVehicles() {
+  Future<List<Map<String, dynamic>>> getOwnedVehicles() async {
+    await Future.delayed(Duration(seconds: 1));
     return vehicles.values.toList();
   }
 }
