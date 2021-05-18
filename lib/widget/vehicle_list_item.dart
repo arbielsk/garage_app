@@ -31,16 +31,6 @@ class VehicleListItem extends StatelessWidget {
       child: InkWell(
         splashColor: _inkWellColor,
         highlightColor: _inkWellColor,
-         onTap: () => Navigator.of(context).push(MaterialPageRoute<Null>(
-          builder: (BuildContext context) {
-            return VehicleScreen(
-                vehicleState: VehicleState(
-                    engineStatus: EngineStatus.ON,
-                    ignitionStatus: IgnitionStatus.OFF,
-                    lockStatus: LockStatus.LOCKED),
-                vehicle: vehicle);
-          },
-        )),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
