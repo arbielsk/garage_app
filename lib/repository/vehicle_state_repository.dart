@@ -8,7 +8,7 @@ abstract class VehicleStateRepository {
   // REQ 1: subscribeVehicleState
   // REQ 2: wait for first result, transform to VehicleState and return
   // REQ 3: unsubscribe
-  VehicleState getVehicleState(String vin);
+  Future<VehicleState> getVehicleState(String vin);
   // REQ 1: Transform vehicleState to Map and call DataProvider
   void updateVehicleState(String vin, VehicleState vehicleState);
 }
