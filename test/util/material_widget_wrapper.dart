@@ -12,30 +12,28 @@ class MaterialWidgetWrapper extends StatelessWidget {
         primarySwatch: Colors.blue,
         textTheme: TextTheme(
           headline4: TextStyle(
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w400,
-            fontSize: 34.0,
-            color: Colors.green,
-          ),
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w400,
+              fontSize: 34.0,
+              color: Colors.green),
           subtitle2: TextStyle(
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w400,
-            fontSize: 34.0,
-            color: Colors.green,
-          ),
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w400,
+              fontSize: 34.0,
+              color: Colors.green),
+          subtitle1: TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w400,
+              fontSize: 34.0,
+              color: Colors.green),
           caption: TextStyle(
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w400,
-            fontSize: 34.0,
-            color: Colors.green,
-          ),
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w400,
+              fontSize: 34.0,
+              color: Colors.green),
         ),
       ),
-      home: Scaffold(
-        body: Center(
-          child: child,
-        ),
-      ),
+      home: Scaffold(body: Center(child: child)),
     );
   }
 }

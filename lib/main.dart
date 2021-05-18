@@ -5,6 +5,7 @@ import 'package:garage_app/model/enum/motor_status.dart';
 import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/model/vehicle_state.dart';
 import 'package:garage_app/widget/vehicle_list_item.dart';
+import 'package:garage_app/widget/vehicle_screen.dart';
 
 final _vehicle = Vehicle(
   displayName: "Zielpuls BMW 3",
@@ -27,17 +28,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue),
         home: Scaffold(
           body: Container(
             color: Colors.green,
             child: Center(
-              child: VehicleListItem(
-                vehicle: _vehicle,
-              ),
-            ),
+                child: VehicleScreen(
+                    vehicle: _vehicle, vehicleState: _vehicleState)
+                //  VehicleListItem(
+                //   vehicle: _vehicle,
+                // ),
+                ),
           ),
         ));
   }
