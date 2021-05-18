@@ -8,6 +8,7 @@ abstract class GarageBlocState {}
 
 class InitialState extends GarageBlocState {
   @override
+  // ignore: hash_and_equals
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
@@ -17,6 +18,7 @@ class InitialState extends GarageBlocState {
 
 class LoadVehiclesState extends GarageBlocState {
   @override
+  // ignore: hash_and_equals
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
@@ -85,7 +87,7 @@ class LoadVehiclesSuccessState extends GarageBlocState {
 
   Map<String, dynamic> toMap() {
     return {
-      'vehicles': vehicles?.map((x) => x.toMap())?.toList(),
+      'vehicles': vehicles.map((x) => x.toMap()).toList(),
     };
   }
 

@@ -33,15 +33,29 @@ void main() {
     });
 
     blocTest(
+      'emits LoadVehiclesState, LoadVehicleSuccessState when initialized',
+      build: _initializeBloc,
+      expect: () => [
+        LoadVehiclesState(),
+        LoadVehiclesSuccessState(emptyVehicles),
+      ],
+      verify: (_) {
+        verify(repo.getOwnedVehicles()).called(2);
+      },
+    );
+
+    blocTest(
       'emits LoadVehiclesState, LoadVehicleSuccessState when receiving results from repository',
       build: _initializeBloc,
       act: (GarageBloc bloc) => bloc.add(LoadVehiclesEvent()),
       expect: () => [
         LoadVehiclesState(),
         LoadVehiclesSuccessState(emptyVehicles),
+        LoadVehiclesState(),
+        LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(1);
+        verify(repo.getOwnedVehicles()).called(2);
       },
     );
 
@@ -51,6 +65,7 @@ void main() {
         when(repo.getOwnedVehicles()).thenThrow(error);
         return bloc;
       },
+      skip: 2,
       act: (GarageBloc bloc) => bloc.add(LoadVehiclesEvent()),
       expect: () => [
         LoadVehiclesState(),
@@ -59,13 +74,14 @@ void main() {
         ),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(1);
+        verify(repo.getOwnedVehicles()).called(2);
       },
     );
 
     blocTest(
       'emits LoadVehiclesState, LoadVehicleSuccessState when receiving results from repository',
       build: _initializeBloc,
+      skip: 2,
       seed: () =>
           LoadVehiclesFailState('some error message') as GarageBlocState,
       act: (GarageBloc bloc) => bloc.add(LoadVehiclesEvent()),
@@ -74,13 +90,14 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(1);
+        verify(repo.getOwnedVehicles()).called(2);
       },
     );
 
     blocTest(
       'emits LoadVehiclesState, LoadVehicleSuccessState when receiving results from repository',
       build: _initializeBloc,
+      skip: 2,
       seed: () => LoadVehiclesSuccessState(emptyVehicles) as GarageBlocState,
       act: (GarageBloc bloc) => bloc.add(LoadVehiclesEvent()),
       expect: () => [
@@ -88,7 +105,7 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(1);
+        verify(repo.getOwnedVehicles()).called(2);
       },
     );
   });

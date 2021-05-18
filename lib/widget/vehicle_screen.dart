@@ -3,8 +3,8 @@ import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/model/vehicle_state.dart';
 
 class VehicleScreen extends StatelessWidget {
-  VehicleState vehicleState;
-  Vehicle vehicle;
+  final VehicleState vehicleState;
+  final Vehicle vehicle;
 
   VehicleScreen({
     Key? key,

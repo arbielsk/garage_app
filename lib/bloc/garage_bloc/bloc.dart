@@ -4,9 +4,12 @@ import 'package:garage_app/bloc/garage_bloc/state.dart';
 import 'package:garage_app/repository/garage_repository.dart';
 
 class GarageBloc extends Bloc<GarageBlocEvent, GarageBlocState> {
-  final GarageRepository repo;
+  late GarageRepository repo;
 
-  GarageBloc(this.repo) : super(InitialState());
+  GarageBloc(GarageRepository repository) : super(InitialState()) {
+    this.repo = repository;
+    this.add(LoadVehiclesEvent());
+  }
 
   @override
   Stream<GarageBlocState> mapEventToState(GarageBlocEvent event) async* {

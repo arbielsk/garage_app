@@ -25,7 +25,6 @@ void main() {
     testWidgets('can be instantiated with a vehicle',
         (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
       expect(find.byWidget(_vehicleListItem), findsOneWidget);
     });
 
@@ -45,7 +44,6 @@ void main() {
 
     testWidgets('fills the parents width', (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
 
       // get widget width
       final findVehicleListItem = find.byWidget(_vehicleListItem);
@@ -65,7 +63,6 @@ void main() {
       final padding = 8.0;
 
       await _initializeWidget(tester);
-      ;
 
       final findVehicleListItem = find.byWidget(_vehicleListItem);
       final vehicleListItemSize = tester.getSize(findVehicleListItem);
@@ -82,7 +79,6 @@ void main() {
 
     testWidgets('has InkWell', (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
 
       final findInkWell = find.byType(InkWell);
 
@@ -93,7 +89,6 @@ void main() {
       final splashColor = Colors.yellow;
 
       await _initializeWidget(tester);
-      ;
 
       final findInkWell = find.byType(InkWell);
 
@@ -107,7 +102,6 @@ void main() {
       final highlightColor = Colors.yellow;
 
       await _initializeWidget(tester);
-      ;
 
       final findInkWell = find.byType(InkWell);
 
@@ -122,7 +116,6 @@ void main() {
       final backgroundColor = Colors.white;
 
       await _initializeWidget(tester);
-      ;
 
       final findVehicleListItem = find.byWidget(_vehicleListItem);
       final findContainer = find.descendant(
@@ -136,7 +129,6 @@ void main() {
 
     testWidgets('centers its content', (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
 
       final findVehicleListItem = find.byWidget(_vehicleListItem);
       final findIcon = find.byType(Icon);
@@ -166,7 +158,6 @@ void main() {
         (WidgetTester tester) async {
       final horizontalSpacing = 16.0;
       await _initializeWidget(tester);
-      ;
 
       final findIcon = find.byType(Icon);
       final findDisplayName = find.text(_vehicle.displayName);
@@ -186,7 +177,6 @@ void main() {
       final expectedIconSize = 60.0;
 
       await _initializeWidget(tester);
-      ;
 
       final findIcon = find.byType(Icon);
       final actualIconSize = tester.getSize(findIcon);
@@ -199,7 +189,6 @@ void main() {
       final expectedIcon = Icons.anchor;
 
       await _initializeWidget(tester);
-      ;
 
       final findIcon = find.byType(Icon);
       final actualIcon = tester.firstWidget<Icon>(findIcon);
@@ -212,7 +201,6 @@ void main() {
     testWidgets('text should be vehicle.displayName',
         (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
 
       final findText = find.text(_vehicle.displayName);
 
@@ -221,7 +209,6 @@ void main() {
 
     testWidgets('should use headline4 style', (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
 
       final findText = find.text(_vehicle.displayName);
       final actualWidget = tester.firstWidget<Text>(findText);
@@ -244,7 +231,6 @@ void main() {
   group('Brand Model Specifier', () {
     testWidgets('text should be vehicle.model', (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
 
       final findText = find.text(_vehicle.model);
 
@@ -253,7 +239,6 @@ void main() {
 
     testWidgets('should use headline4 style', (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
 
       final findText = find.text(_vehicle.model);
       final actualWidget = tester.firstWidget<Text>(findText);
@@ -276,7 +261,6 @@ void main() {
   group('Vin label', () {
     testWidgets('text should be vehicle.vin', (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
 
       final findText = find.text(_vehicle.vin);
 
@@ -285,7 +269,6 @@ void main() {
 
     testWidgets('should use caption style', (WidgetTester tester) async {
       await _initializeWidget(tester);
-      ;
 
       final findText = find.text(_vehicle.vin);
       final actualWidget = tester.firstWidget<Text>(findText);
