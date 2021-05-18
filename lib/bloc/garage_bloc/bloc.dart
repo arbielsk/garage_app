@@ -9,8 +9,15 @@ class GarageBloc extends Bloc<GarageBlocEvent, GarageBlocState> {
   GarageBloc(this.repo) : super(InitialState());
 
   @override
-  Stream<GarageBlocState> mapEventToState(GarageBlocEvent event) {
-    // TODO: implement mapEventToState
-    throw UnimplementedError();
+  Stream<GarageBlocState> mapEventToState(GarageBlocEvent event) async* {
+    if (event is LoadVehiclesEvent) {
+      yield LoadVehiclesState();
+      try {
+        final vehicles = await repo.getOwnedVehicles();
+        yield LoadVehiclesSuccessState(vehicles);
+      } catch (e) {
+        yield LoadVehiclesFailState(e.toString());
+      }
+    }
   }
 }

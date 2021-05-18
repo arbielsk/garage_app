@@ -6,9 +6,23 @@ import 'package:garage_app/model/vehicle.dart';
 
 abstract class GarageBlocState {}
 
-class InitialState extends GarageBlocState {}
+class InitialState extends GarageBlocState {
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-class LoadVehiclesState extends GarageBlocState {}
+    return other is InitialState;
+  }
+}
+
+class LoadVehiclesState extends GarageBlocState {
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is LoadVehiclesState;
+  }
+}
 
 class LoadVehiclesFailState extends GarageBlocState {
   final String errorMessage;
