@@ -1,0 +1,1 @@
+class VehicleCannotBeAddedException implements Exception {}

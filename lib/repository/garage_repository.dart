@@ -1,4 +1,5 @@
 import 'package:garage_app/data_provider/garage_data_provider.dart';
+import 'package:garage_app/exceptions/vehicle_cannot_be_added_exception.dart';
 import 'package:garage_app/model/vehicle.dart';
 
 class GarageRepository {
@@ -19,10 +20,11 @@ class GarageRepository {
     return vehicles;
   }
 
-  // REQ 1: addVehicle from GarageDataProvider.
-  // REQ 2: getOwnedVehicles from GarageDataProvider and transform to Vehicle
-  // REQ 3: if dataProvider.addVehicle returns false, throw a VehicleCannotBeAddedException
   Future<List<Vehicle>> addVehicle(Vehicle vehicle) async {
-    throw UnimplementedError();
+    final success = await _dataProvider.addVehicle(vehicle.toMap());
+    if (success) {
+      return await getOwnedVehicles();
+    }
+    throw VehicleCannotBeAddedException();
   }
 }
