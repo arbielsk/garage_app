@@ -120,7 +120,7 @@ Flutter project for practice.
 
 ## Task 4: GarageDataProvider
 
-- implement according to spec in lib/data_provider/garage_data_provider.dart
+- ~~implement according to spec in lib/data_provider/garage_data_provider.dart~~
 
 ## Task 5: GarageRepository
 
@@ -128,8 +128,35 @@ Flutter project for practice.
 
 ## Task 6: VehicleStateDataProvider
 
-- implement according to spec in lib/data_provider/vehicle_state_data_provider.dart
+- ~~implement according to spec in lib/data_provider/vehicle_state_data_provider.dart~~
 
 ## Task 7: VehicleStateRepository
 
 - implement according to spec in lib/repository/vehicle_state_repository.dart
+
+## Task 8: GarageBloc
+
+- define states and events for GarageBloc
+- implement the features
+- GarageBloc should be able to cover the following features:
+
+  1. **Load owned vehicles** Upon an event loads the ownedVehicles from the GarageRepository and emits a new state containing them
+  2. **Reload owned vehicles** Upon an event reloads the ownedVehicles from the GarageRepository and emits a new state containing them
+  3. **Load owned vehicles** While the GarageBloc is loading, a state shall be emitted so UI knows to show a loading indicator
+  4. **Add vehicle by vin** An event can be added to the BLoC containing a VIN that results in the BLoC
+     - preparing a Vehicle object with a generated model and displayName
+     - emitting a state to indicate that it is currently trying to add a vehicle
+     - calling addVehicle on the GarageRepository
+     - emitting a state with the vehicles that have been returned from the GarageRepository
+     - if the GarageRepository threw an error, emit an error state with the known ownedVehicles
+
+**TIP**:
+
+- GarageDataProvider has a delay so the loading states can be properly tested
+- **yield** is amazing to emit multiple states while reacting to a single event
+
+## Task 9: Connect GarageBloc to UI
+
+- instantiate a BlocProvider in the widget tree above the GarageScreen
+- use a (or multiple) BLoC-Builder(s) to consume the state in the GarageScreen and react to state changes
+- when instantiating the screen add the corresponding event to the BLoC from UI to trigger the initial load of ownedVehicles
