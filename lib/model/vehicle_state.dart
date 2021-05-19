@@ -27,7 +27,7 @@ class VehicleState {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, String> toMap() {
     return {
       'ignitionStatus': ignitionStatus.toString(),
       'lockStatus': lockStatus.toString(),
