@@ -168,7 +168,6 @@ void main() {
       final vehicleScreen = find.byType(VehicleScreen);
       await tester.tap(gestureDetector);
       await tester.pumpAndSettle();
-      expect(gestureDetector, findsOneWidget);
       expect(vehicleScreen, findsOneWidget);
     });
   });
