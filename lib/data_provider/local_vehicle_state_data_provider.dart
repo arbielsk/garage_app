@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:garage_app/data_provider/vehicle_state_data_provider.dart';
 
-class MockVehicleStateDataProvider implements VehicleStateDataProvider {
+class LocalVehicleStateDataProvider implements VehicleStateDataProvider {
   static const initialVehicleState = {
     'ignitionStatus': 'OFF',
     'lockStatus': 'LOCKED',

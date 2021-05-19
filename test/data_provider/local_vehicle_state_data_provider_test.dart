@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:garage_app/data_provider/mock_vehicle_state_data_provider.dart';
+import 'package:garage_app/data_provider/local_vehicle_state_data_provider.dart';
 
 main() {
-  late MockVehicleStateDataProvider provider;
+  late LocalVehicleStateDataProvider provider;
   final vin = 'ASDF1ASDF2ASDF341';
   final vehicleState = {
     'ignitionStatus': 'OFF',
@@ -17,7 +17,7 @@ main() {
     'engineStatus': 'OFF'
   };
   setUp(() {
-    provider = MockVehicleStateDataProvider();
+    provider = LocalVehicleStateDataProvider();
   });
 
   group('subscribeVehicleState', () {

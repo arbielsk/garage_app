@@ -40,7 +40,7 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        verify(repo.getOwnedVehicles()).called(1);
       },
     );
 
