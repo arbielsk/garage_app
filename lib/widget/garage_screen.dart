@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/bloc/garage_bloc/bloc.dart';
 import 'package:garage_app/bloc/garage_bloc/state.dart';
 import 'package:garage_app/model/vehicle_state.dart';
+import 'package:garage_app/widget/vehicle/vehicle_screen_route.dart';
 import 'package:garage_app/widget/vehicle_list_item.dart';
-import 'package:garage_app/widget/vehicle_screen.dart';
+import 'package:garage_app/widget/vehicle/vehicle_screen.dart';
 
 class GarageScreen extends StatelessWidget {
   static const _color = Colors.blueGrey;
@@ -33,8 +34,7 @@ class GarageScreen extends StatelessWidget {
                     return GestureDetector(
                       onTap: () => Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
-                        return VehicleScreen(
-                            vehicleState: VehicleState(),
+                        return VehicleScreenRoute(
                             vehicle: state.vehicles[index]);
                       })),
                       child: VehicleListItem(vehicle: state.vehicles[index]),
@@ -50,7 +50,6 @@ class GarageScreen extends StatelessWidget {
                   child: Text(state.errorMessage),
                 ));
           }
-
           return Container();
         },
       ),
