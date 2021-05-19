@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:garage_app/widget/front_layer.dart';
 import 'package:garage_app/widget/vehicle_list_item.dart';
+import 'package:garage_app/widget/vehicle_screen.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../lib/widget/garage_route.dart';
 import '../test_util/material_widget_wrapper.dart';
@@ -151,11 +154,22 @@ void main() {
       expect(containerSize.width, elevatedButtonSize.width - _padding * 2);
     });
 
-    testWidgets('Test onTap', (WidgetTester tester) async {
+    testWidgets('VehicleListItem has GestureDetector',
+        (WidgetTester tester) async {
       await tester.pumpWidget(_widget);
       await tester.pumpAndSettle();
-      final gestureDetector = find.byType(GestureDetector);
-      //expect(tester.tap(gestureDetector), );
+      final gestureDetector = find.byType(GestureDetector).first;
+      expect(gestureDetector, findsOneWidget);
+    });
+    testWidgets('navigate onTap', (WidgetTester tester) async {
+      await tester.pumpWidget(_widget);
+      await tester.pumpAndSettle();
+      final gestureDetector = find.byType(GestureDetector).first;
+      final vehicleScreen = find.byType(VehicleScreen);
+      await tester.tap(gestureDetector);
+      await tester.pumpAndSettle();
+      expect(gestureDetector, findsOneWidget);
+      expect(vehicleScreen, findsOneWidget);
     });
   });
 }

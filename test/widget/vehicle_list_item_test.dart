@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:garage_app/model/vehicle.dart';
+import 'package:garage_app/model/vehicle_state.dart';
 import 'package:garage_app/widget/vehicle_list_item.dart';
 
 import '../test_util/material_widget_wrapper.dart';
