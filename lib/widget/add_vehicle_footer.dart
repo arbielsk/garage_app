@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FrontLayer extends StatelessWidget {
+class AddVehicleFooter extends StatelessWidget {
   static const _containerHeight = 120.0;
   static const _padding = 8.0;
   static const _text = 'Add vehicle';
