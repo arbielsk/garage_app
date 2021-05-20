@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:garage_app/bloc/garage_bloc/event.dart';
@@ -21,7 +20,6 @@ class GarageBloc extends Bloc<GarageBlocEvent, GarageBlocState> {
         final vehicles = await repo.getOwnedVehicles();
         yield LoadVehiclesSuccessState(vehicles);
       } catch (e) {
-        log(e.toString());
         yield LoadVehiclesFailState(e.toString());
       }
     }
