@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/widget/garage_route.dart';
-import 'package:garage_app/widget/vehicle_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,9 +16,6 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: GarageRoute(),
       ),
-      routes: <String, WidgetBuilder>{
-        // '/vehicleScreen': (BuildContext context) => VehicleScreen(),
-      },
     );
   }
 }
