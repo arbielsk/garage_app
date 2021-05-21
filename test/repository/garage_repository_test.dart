@@ -1,13 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:garage_app/data_provider/garage_data_provider.dart';
 import 'package:garage_app/data_provider/local_garage_data_provider.dart';
+import 'package:garage_app/exceptions/vehicle_cannot_be_added_exception.dart';
 import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/repository/garage_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:matcher/matcher.dart';
-
-import '../../lib/exceptions/vehicle_cannot_be_added_exception.dart';
 import 'garage_repository_test.mocks.dart';
 
 @GenerateMocks([GarageDataProvider])
@@ -91,8 +89,8 @@ void main() {
     test('addVehicle from GarageDataProvider returns false', () async {
       when(provider.addVehicle(_vehicle.toMap()))
           .thenAnswer((_) async => false);
-      expect(() async => await garageRepo.addVehicle(_vehicle),
-          throwsA(const TypeMatcher<VehicleCannotBeAddedException>()));
+      expect(garageRepo.addVehicle(_vehicle),
+          throwsA(isA<VehicleCannotBeAddedException>()));
     });
   });
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:garage_app/widget/front_layer.dart';
-import 'package:garage_app/widget/vehicle_list_item.dart';
-
+import 'package:garage_app/widget/add_vehicle_footer.dart';
 import '../../lib/widget/garage_route.dart';
+import '../../lib/widget/vehicle_screen.dart';
 import '../test_util/material_widget_wrapper.dart';
 
 void main() {
@@ -13,7 +12,6 @@ void main() {
       final text = 'Garage';
       await tester.pumpWidget(_widget);
       await tester.pumpAndSettle();
-
       final appBar = find.text(text);
       expect(appBar, findsOneWidget);
     });
@@ -53,7 +51,7 @@ void main() {
       await tester.pumpAndSettle();
       final findListView = find.byType(ListView);
       final listView = find.descendant(
-          of: findListView, matching: find.byType(VehicleListItem));
+          of: findListView, matching: find.byType(GestureDetector));
       expect(listView, findsWidgets);
     });
 
@@ -80,7 +78,7 @@ void main() {
   });
 
   group('front layer', () {
-    final _frontLayer = MaterialWidgetWrapper(child: FrontLayer());
+    final _frontLayer = MaterialWidgetWrapper(child: AddVehicleFooter());
     testWidgets('Container height 120.0 and fill the parent',
         (WidgetTester tester) async {
       final _containerSize = 120.0;
@@ -133,7 +131,7 @@ void main() {
       final _padding = 8.0;
       await tester.pumpWidget(_frontLayer);
       await tester.pumpAndSettle();
-      final frontLayer = find.byType(FrontLayer);
+      final frontLayer = find.byType(AddVehicleFooter);
 
       final elevatedButton = find.descendant(
           of: frontLayer, matching: find.byType(ElevatedButton));
@@ -145,17 +143,26 @@ void main() {
 
       final elevatedButtonSize = tester.getSize(elevatedButton);
 
-      final textContainer =
-          find.descendant(of: elevatedButton, matching: find.byType(Text));
-      final containerSize = tester.getSize(textContainer);
+      final containerSize = tester.getSize(elevatedButtonText);
       expect(containerSize.width, elevatedButtonSize.width - _padding * 2);
+      expect(containerSize.height, elevatedButtonSize.height - _padding * 2);
     });
 
-    testWidgets('Test onTap', (WidgetTester tester) async {
+    testWidgets('Test GestureDetector exists', (WidgetTester tester) async {
       await tester.pumpWidget(_widget);
       await tester.pumpAndSettle();
-      final gestureDetector = find.byType(GestureDetector);
-      //expect(tester.tap(gestureDetector), );
+      final gestureDector = find.byType(GestureDetector).first;
+      expect(gestureDector, findsOneWidget);
+    });
+
+    testWidgets('Navigation test', (WidgetTester tester) async {
+      await tester.pumpWidget(_widget);
+      await tester.pumpAndSettle();
+      final gestureDetector = find.byType(GestureDetector).first;
+      await tester.tap(gestureDetector);
+      await tester.pumpAndSettle();
+      final vehicleScreen = find.byType(VehicleScreen);
+      expect(vehicleScreen, findsNothing);
     });
   });
 }

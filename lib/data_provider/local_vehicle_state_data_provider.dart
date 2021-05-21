@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:garage_app/data_provider/vehicle_state_data_provider.dart';
+import 'package:garage_app/model/enum/ignition_status.dart';
+import 'package:garage_app/model/enum/lock_status.dart';
+import 'package:garage_app/model/enum/motor_status.dart';
 
 class LocalVehicleStateDataProvider implements VehicleStateDataProvider {
-  static const initialVehicleState = {
-    'ignitionStatus': 'OFF',
-    'lockStatus': 'LOCKED',
-    'engineStatus': 'OFF',
+  final initialVehicleState = {
+    'ignitionStatus': IgnitionStatus.OFF.toString(),
+    'lockStatus': LockStatus.LOCKED.toString(),
+    'engineStatus': EngineStatus.OFF.toString(),
   };
 
   static const _tickInterval = Duration(seconds: 5);

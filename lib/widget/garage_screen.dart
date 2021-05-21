@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/bloc/garage_bloc/bloc.dart';
 import 'package:garage_app/bloc/garage_bloc/state.dart';
+import 'package:garage_app/widget/add_vehicle_footer.dart';
 import 'package:garage_app/widget/vehicle_list_item.dart';
+import 'package:garage_app/widget/vehicle_route.dart';
 
 class GarageScreen extends StatelessWidget {
   static const _color = Colors.blueGrey;
@@ -22,16 +24,28 @@ class GarageScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-
           if (state is LoadVehiclesSuccessState) {
             return Stack(children: [
               ListView.builder(
                   itemCount: state.vehicles.length,
                   itemBuilder: (BuildContext ctx, int index) {
-                    return VehicleListItem(
-                      vehicle: state.vehicles.elementAt(index),
+                    return GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              VehicleRoute(state.vehicles[index]),
+                        ),
+                      ),
+                      child: VehicleListItem(
+                        vehicle: state.vehicles.elementAt(index),
+                      ),
                     );
-                  })
+                  }),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: AddVehicleFooter(),
+              ),
             ]);
           }
 
@@ -39,7 +53,7 @@ class GarageScreen extends StatelessWidget {
             return Container(
                 color: Colors.red,
                 child: Center(
-                  child: Text(state.errorMessage),
+                  child: Text(state.errorMessage.toString()),
                 ));
           }
 
