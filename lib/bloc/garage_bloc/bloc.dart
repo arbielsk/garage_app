@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:garage_app/bloc/garage_bloc/event.dart';
 import 'package:garage_app/bloc/garage_bloc/state.dart';
+import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/repository/garage_repository.dart';
 
 class GarageBloc extends Bloc<GarageBlocEvent, GarageBlocState> {
@@ -21,6 +22,21 @@ class GarageBloc extends Bloc<GarageBlocEvent, GarageBlocState> {
       } catch (e) {
         yield LoadVehiclesFailState(e.toString());
       }
+    }
+    if (event is AddVehiclesEvent) {
+      yield AddVehicleState();
+      try {
+        final vehicle = Vehicle(vin: event.vin, displayName: "New Car", model: "model");
+
+        final vehicles = await repo.addVehicle(vehicle);
+        
+        yield AddVehiclesSuccessState(vehicles: vehicles);
+        
+        
+      } catch (e) {
+        yield AddVehiclesFailState(errorMessage: e.toString());
+      }
+      
     }
   }
 }

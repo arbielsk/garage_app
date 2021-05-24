@@ -17,6 +17,11 @@ void main() {
     final emptyVehicles = List<Vehicle>.empty();
     final errorMessage = 'Error';
     final error = Exception(errorMessage);
+    final addedVehicle = Vehicle(
+      vin: 'NEW VIN',
+      model: 'ADDED',
+      displayName: 'New Added',
+    );
 
     setUp(() {
       repo = MockGarageRepository();
@@ -82,8 +87,7 @@ void main() {
       'emits LoadVehiclesState, LoadVehicleSuccessState when receiving results from repository',
       build: _initializeBloc,
       skip: 2,
-      seed: () =>
-          LoadVehiclesFailState('some error message') as GarageBlocState,
+      seed: () => LoadVehiclesSuccessState(emptyVehicles) as GarageBlocState,
       act: (GarageBloc bloc) => bloc.add(LoadVehiclesEvent()),
       expect: () => [
         LoadVehiclesState(),
@@ -95,17 +99,23 @@ void main() {
     );
 
     blocTest(
-      'emits LoadVehiclesState, LoadVehicleSuccessState when receiving results from repository',
-      build: _initializeBloc,
+      'emits AddVehicleState, AddVehiclesSuccessState after pushing AddVehiclesEvent with a vin',
+      build: () {
+           var newList = [...emptyVehicles,addedVehicle];
+           when(repo.addVehicle(addedVehicle)).thenAnswer((_) async => newList);
+        return bloc;
+      },
       skip: 2,
-      seed: () => LoadVehiclesSuccessState(emptyVehicles) as GarageBlocState,
-      act: (GarageBloc bloc) => bloc.add(LoadVehiclesEvent()),
+      seed: () => AddVehiclesSuccessState(vehicles: emptyVehicles) as GarageBlocState,
+      act: (GarageBloc bloc) => bloc.add(AddVehiclesEvent(addedVehicle.vin)),
       expect: () => [
-        LoadVehiclesState(),
-        LoadVehiclesSuccessState(emptyVehicles),
+        AddVehicleState(),
+        AddVehiclesSuccessState(vehicles: emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        verify(repo.addVehicle(addedVehicle)).called(1);
+        verify(repo.getOwnedVehicles()).called(1);
+        
       },
     );
   });
