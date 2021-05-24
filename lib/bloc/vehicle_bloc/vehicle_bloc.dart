@@ -24,11 +24,7 @@ class VehicleBloc extends Bloc<VehicleStateEvents, VehicleBlocState> {
       try {
         yield LoadedVehicleBlocState(
             await vehicleStateRepository.getVehicleState(event.vin));
-        vehicleStateStream ??= vehicleStateRepository
-            .streamVehicleState(event.vin)
-            .listen((event) {
-          this.add(NewVehicleStateEvent(event));
-        });
+        this.add(SubscribeVehicleStateEvent(event.vin));
       } catch (e) {
         yield Failed(e.toString());
       }
@@ -49,6 +45,12 @@ class VehicleBloc extends Bloc<VehicleStateEvents, VehicleBlocState> {
       } catch (e) {
         yield Failed(e.toString());
       }
+    }
+    if (event is SubscribeVehicleStateEvent) {
+      vehicleStateStream ??=
+          vehicleStateRepository.streamVehicleState(event.vin).listen((event) {
+        this.add(NewVehicleStateEvent(event));
+      });
     }
   }
 
