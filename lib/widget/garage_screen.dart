@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:garage_app/bloc/garage_bloc/bloc.dart';
 import 'package:garage_app/bloc/garage_bloc/state.dart';
+import 'package:garage_app/widget/garage_screen_front_layer.dart';
 import 'package:garage_app/widget/vehicle_list_item.dart';
 
 class GarageScreen extends StatelessWidget {
@@ -24,15 +25,20 @@ class GarageScreen extends StatelessWidget {
           }
 
           if (state is LoadVehiclesSuccessState) {
-            return Stack(children: [
-              ListView.builder(
-                  itemCount: state.vehicles.length,
-                  itemBuilder: (BuildContext ctx, int index) {
-                    return VehicleListItem(
-                      vehicle: state.vehicles.elementAt(index),
-                    );
-                  })
-            ]);
+            return Stack(
+              key: Key("GarageScreenStack"),
+              alignment: Alignment.bottomCenter,
+              children: [
+                ListView.builder(
+                    itemCount: state.vehicles.length,
+                    itemBuilder: (BuildContext ctx, int index) {
+                      return VehicleListItem(
+                        vehicle: state.vehicles.elementAt(index),
+                      );
+                    }),
+                GarageScreenFrontLayer(),
+              ],
+            );
           }
 
           if (state is LoadVehiclesFailState) {
