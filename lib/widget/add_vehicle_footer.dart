@@ -22,7 +22,6 @@ class AddVehicleFooter extends StatelessWidget {
           },
           child: Text(
             _text,
-            style: Theme.of(context).textTheme.subtitle2,
           ),
         ),
       ]),

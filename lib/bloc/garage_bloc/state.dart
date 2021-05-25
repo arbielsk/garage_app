@@ -116,3 +116,139 @@ class LoadVehiclesSuccessState extends GarageBlocState {
   @override
   int get hashCode => vehicles.hashCode;
 }
+
+class AddVehicleState extends GarageBlocState {
+  final String vin;
+
+  AddVehicleState(
+    this.vin,
+  );
+
+  AddVehicleState copyWith({
+    String? vin,
+  }) {
+    return AddVehicleState(
+      vin ?? this.vin,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'vin': vin,
+    };
+  }
+
+  factory AddVehicleState.fromMap(Map<String, dynamic> map) {
+    return AddVehicleState(
+      map['vin'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory AddVehicleState.fromJson(String source) =>
+      AddVehicleState.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'AddVehicleState(vin: $vin)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is AddVehicleState && other.vin == vin;
+  }
+
+  @override
+  int get hashCode => vin.hashCode;
+}
+
+class AddVehicleSuccessState extends GarageBlocState {
+  final String vin;
+  AddVehicleSuccessState({
+    required this.vin,
+  });
+
+  AddVehicleSuccessState copyWith({
+    String? vin,
+  }) {
+    return AddVehicleSuccessState(
+      vin: vin ?? this.vin,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'vin': vin,
+    };
+  }
+
+  factory AddVehicleSuccessState.fromMap(Map<String, dynamic> map) {
+    return AddVehicleSuccessState(
+      vin: map['vin'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory AddVehicleSuccessState.fromJson(String source) =>
+      AddVehicleSuccessState.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'AddVehicleSuccessState(vin: $vin)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is AddVehicleSuccessState && other.vin == vin;
+  }
+
+  @override
+  int get hashCode => vin.hashCode;
+}
+
+class AddVehicleFailState extends GarageBlocState {
+  final String vin;
+  AddVehicleFailState({
+    required this.vin,
+  });
+
+  AddVehicleFailState copyWith({
+    String? vin,
+  }) {
+    return AddVehicleFailState(
+      vin: vin ?? this.vin,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'vin': vin,
+    };
+  }
+
+  factory AddVehicleFailState.fromMap(Map<String, dynamic> map) {
+    return AddVehicleFailState(
+      vin: map['vin'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory AddVehicleFailState.fromJson(String source) =>
+      AddVehicleFailState.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'AddVehicleFailState(vin: $vin)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is AddVehicleFailState && other.vin == vin;
+  }
+
+  @override
+  int get hashCode => vin.hashCode;
+}
