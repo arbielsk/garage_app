@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:garage_app/bloc/garage_bloc/bloc.dart';
 import 'package:garage_app/bloc/garage_bloc/event.dart';
 import 'package:garage_app/bloc/garage_bloc/state.dart';
+import 'package:garage_app/data_provider/local_garage_data_provider.dart';
 import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/repository/garage_repository.dart';
 import 'package:mockito/annotations.dart';
@@ -14,6 +15,8 @@ void main() {
   group('GarageBloc', () {
     late GarageBloc bloc;
     late GarageRepository repo;
+    late LocalGarageDataProvider provider;
+
     final emptyVehicles = List<Vehicle>.empty();
     final errorMessage = 'Error';
     final error = Exception(errorMessage);
@@ -25,6 +28,7 @@ void main() {
 
     setUp(() {
       repo = MockGarageRepository();
+      provider = LocalGarageDataProvider();
       bloc = GarageBloc(repo);
     });
 
@@ -102,7 +106,7 @@ void main() {
       'emits AddVehicleState, AddVehiclesSuccessState after pushing AddVehiclesEvent with a vin',
       build: () {
            var newList = [...emptyVehicles,addedVehicle];
-           when(repo.addVehicle(addedVehicle)).thenAnswer((_) async => newList);
+           when( provider.addVehicle(addedVehicle.toMap())).thenAnswer((_) async => true);
         return bloc;
       },
       skip: 2,
