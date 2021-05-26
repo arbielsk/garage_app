@@ -29,25 +29,26 @@ void main() {
         engineStatus: EngineStatus.OFF,
         lockStatus: LockStatus.OPEN,
         ignitionStatus: IgnitionStatus.OFF);
+    final String vinNumber = 'A1234B1234C1234D3';
     final errorMessage = 'Error';
     final error = Exception(errorMessage);
 
     setUp(() {
       repository = MockVehicleStateRepository();
-      vehicleBloc = VehicleBloc(repository, '');
+      vehicleBloc = VehicleBloc(repository, vinNumber);
     });
 
     test('check if first state is Initial', () {
-      when(repository.getVehicleState(''))
+      when(repository.getVehicleState(vinNumber))
           .thenAnswer((_) async => initialVehicleState);
       expect(vehicleBloc.state, InitialVehicleBlocState());
     });
 
     blocTest('emit LoadingVehicleState, LoadedVehicleState after initilization',
         build: () {
-          when(repository.getVehicleState(''))
+          when(repository.getVehicleState(vinNumber))
               .thenAnswer((_) async => initialVehicleState);
-          when(repository.streamVehicleState('')).thenAnswer(
+          when(repository.streamVehicleState(vinNumber)).thenAnswer(
               (realInvocation) => StreamController<VehicleState>().stream);
           return vehicleBloc;
         },
@@ -56,12 +57,12 @@ void main() {
               LoadedVehicleBlocState(initialVehicleState),
             ],
         verify: (_) {
-          verify(repository.getVehicleState('')).called(1);
+          verify(repository.getVehicleState(vinNumber)).called(1);
         });
 
     blocTest('emit LoadingVehicleState and then Failed state',
         build: () {
-          when(repository.getVehicleState('')).thenThrow(error);
+          when(repository.getVehicleState(vinNumber)).thenThrow(error);
           return vehicleBloc;
         },
         expect: () => [
@@ -69,19 +70,19 @@ void main() {
               Failed(error.toString()),
             ],
         verify: (_) {
-          verify(repository.getVehicleState('')).called(1);
+          verify(repository.getVehicleState(vinNumber)).called(1);
         });
 
     blocTest('emit LoadedVehicleState then updateVehicleState',
         build: () {
-          when(repository.getVehicleState(''))
+          when(repository.getVehicleState(vinNumber))
               .thenAnswer((_) async => initialVehicleState);
-          when(repository.streamVehicleState('')).thenAnswer(
+          when(repository.streamVehicleState(vinNumber)).thenAnswer(
               (realInvocation) => StreamController<VehicleState>().stream);
           return vehicleBloc;
         },
         act: (VehicleBloc bloc) =>
-            bloc.add(UpdateVehicleStateEvent('', updatedVehicleState)),
+            bloc.add(UpdateVehicleStateEvent(vinNumber, initialVehicleState)),
         expect: () => [
               LoadingVehicleBlocState(),
               LoadedVehicleBlocState(initialVehicleState),
@@ -89,8 +90,8 @@ void main() {
               LoadedVehicleBlocState(updatedVehicleState),
             ],
         verify: (_) {
-          verify(repository.getVehicleState('')).called(1);
-          verify(repository.updateVehicleState('', updatedVehicleState))
+          verify(repository.getVehicleState(vinNumber)).called(1);
+          verify(repository.updateVehicleState(vinNumber, updatedVehicleState))
               .called(1);
         });
   });

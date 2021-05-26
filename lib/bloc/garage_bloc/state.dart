@@ -118,49 +118,13 @@ class LoadVehiclesSuccessState extends GarageBlocState {
 }
 
 class AddVehicleState extends GarageBlocState {
-  final String vin;
-
-  AddVehicleState(
-    this.vin,
-  );
-
-  AddVehicleState copyWith({
-    String? vin,
-  }) {
-    return AddVehicleState(
-      vin ?? this.vin,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'vin': vin,
-    };
-  }
-
-  factory AddVehicleState.fromMap(Map<String, dynamic> map) {
-    return AddVehicleState(
-      map['vin'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory AddVehicleState.fromJson(String source) =>
-      AddVehicleState.fromMap(json.decode(source));
-
   @override
-  String toString() => 'AddVehicleState(vin: $vin)';
-
-  @override
+  // ignore: hash_and_equals
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is AddVehicleState && other.vin == vin;
+    return other is AddVehicleState;
   }
-
-  @override
-  int get hashCode => vin.hashCode;
 }
 
 class AddVehicleSuccessState extends GarageBlocState {

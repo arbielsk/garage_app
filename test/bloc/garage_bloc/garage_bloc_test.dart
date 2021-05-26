@@ -11,13 +11,27 @@ import 'garage_bloc_test.mocks.dart';
 
 @GenerateMocks([GarageRepository])
 void main() {
-  group('GarageBloc', () {
-    late GarageBloc bloc;
-    late GarageRepository repo;
-    final emptyVehicles = List<Vehicle>.empty();
-    final errorMessage = 'Error';
-    final error = Exception(errorMessage);
+  late GarageBloc bloc;
+  late GarageRepository repo;
+  final emptyVehicles = List<Vehicle>.empty();
+  final errorMessage = 'Error';
+  final error = Exception(errorMessage);
+  final randomVehicle = Vehicle(
+      vin: 'A1234B1234C9999R9',
+      displayName: 'Random BMW',
+      model: 'Random Model');
 
+  setUp(() {
+    repo = MockGarageRepository();
+    bloc = GarageBloc(repo);
+  });
+
+  GarageBloc _initializeBloc() {
+    when(repo.getOwnedVehicles()).thenAnswer((_) async => emptyVehicles);
+    return bloc;
+  }
+
+  group('GarageBloc', () {
     setUp(() {
       repo = MockGarageRepository();
       bloc = GarageBloc(repo);
@@ -108,5 +122,45 @@ void main() {
         verify(repo.getOwnedVehicles()).called(2);
       },
     );
+  });
+
+  group('AddVehicle to GarageScreen', () {
+    blocTest(
+        'AddVehicleState,AddVehicleSuccessState, LoadedVehicleSuccessState',
+        build: () {
+          when(repo.addVehicle(randomVehicle))
+              .thenAnswer((_) async => emptyVehicles);
+          return _initializeBloc();
+        },
+        skip: 2,
+        act: (GarageBloc bloc) => bloc.add(
+              AddVehicleToGarageEvent(randomVehicle.vin),
+            ),
+        expect: () => [
+              AddVehicleState(),
+              AddVehicleSuccessState(vin: randomVehicle.vin),
+              LoadVehiclesSuccessState(emptyVehicles)
+            ],
+        verify: (_) {
+          verify(repo.addVehicle(randomVehicle)).called(1);
+        });
+
+    blocTest('AddVehicleState,AddVehicleFailState, LoadedVehicleSuccessState',
+        build: () {
+          when(repo.addVehicle(randomVehicle)).thenThrow(error);
+          return _initializeBloc();
+        },
+        skip: 2,
+        act: (GarageBloc bloc) => bloc.add(
+              AddVehicleToGarageEvent(randomVehicle.vin),
+            ),
+        expect: () => [
+              AddVehicleState(),
+              AddVehicleFailState(vin: randomVehicle.vin),
+              LoadVehiclesSuccessState(emptyVehicles),
+            ],
+        verify: (_) {
+          verify(repo.addVehicle(randomVehicle)).called(1);
+        });
   });
 }

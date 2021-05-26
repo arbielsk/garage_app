@@ -63,16 +63,7 @@ class VehicleScreen extends StatelessWidget {
                         onPressed: () {
                           BlocProvider.of<VehicleBloc>(context)
                             ..add(UpdateVehicleStateEvent(
-                                vehicle.vin,
-                                VehicleState(
-                                    engineStatus:
-                                        state.vehicleState.engineStatus,
-                                    ignitionStatus:
-                                        state.vehicleState.ignitionStatus,
-                                    lockStatus: state.vehicleState.lockStatus ==
-                                            LockStatus.LOCKED
-                                        ? LockStatus.OPEN
-                                        : LockStatus.LOCKED)));
+                                vehicle.vin, state.vehicleState));
                         },
                         child: Text(
                           state.vehicleState.lockStatus == LockStatus.OPEN

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:garage_app/widget/add_vehicle_footer.dart';
+import 'package:garage_app/widget/garage_screen.dart';
+import 'package:garage_app/widget/vehicle_route.dart';
 import '../../lib/widget/garage_route.dart';
-import '../../lib/widget/vehicle_screen.dart';
 import '../test_util/material_widget_wrapper.dart';
 
 void main() {
@@ -31,7 +32,8 @@ void main() {
       await tester.pumpAndSettle();
       final findStackWidget = find.byWidget(_widget);
       final stack = find.descendant(
-          of: findStackWidget, matching: find.byType(Stack).first);
+          of: findStackWidget,
+          matching: find.byKey(GarageScreen.globalStackKey));
       expect(stack, findsOneWidget);
     });
   });
@@ -128,7 +130,7 @@ void main() {
 
     testWidgets('ElevatedButton text', (WidgetTester tester) async {
       final _text = 'Add vehicle';
-      final _padding = 8.0;
+
       await tester.pumpWidget(_frontLayer);
       await tester.pumpAndSettle();
       final frontLayer = find.byType(AddVehicleFooter);
@@ -140,19 +142,29 @@ void main() {
           find.descendant(of: elevatedButton, matching: find.byType(Text));
 
       expect(tester.firstWidget<Text>(elevatedButtonText).data, _text);
+    });
 
-      final elevatedButtonSize = tester.getSize(elevatedButton);
+    testWidgets('ElevatedButton padding', (WidgetTester tester) async {
+      await tester.pumpWidget(_frontLayer);
+      await tester.pumpAndSettle();
+      final frontLayer = find.byType(AddVehicleFooter);
+      final _padding = EdgeInsets.all(8.0);
 
-      final containerSize = tester.getSize(elevatedButtonText);
-      expect(containerSize.width, elevatedButtonSize.width - _padding * 2);
-      expect(containerSize.height, elevatedButtonSize.height - _padding * 2);
+      final elevatedButton = find.descendant(
+          of: frontLayer, matching: find.byType(ElevatedButton));
+
+      final elevatedButtonChild =
+          find.descendant(of: elevatedButton, matching: find.byType(Container));
+      final elevatedButtonWidget =
+          tester.firstWidget<Container>(elevatedButtonChild);
+      expect(_padding, elevatedButtonWidget.padding);
     });
 
     testWidgets('Test GestureDetector exists', (WidgetTester tester) async {
       await tester.pumpWidget(_widget);
       await tester.pumpAndSettle();
-      final gestureDector = find.byType(GestureDetector).first;
-      expect(gestureDector, findsOneWidget);
+      final gestureDector = find.byType(GestureDetector);
+      expect(gestureDector, findsWidgets);
     });
 
     testWidgets('Navigation test', (WidgetTester tester) async {
@@ -161,8 +173,8 @@ void main() {
       final gestureDetector = find.byType(GestureDetector).first;
       await tester.tap(gestureDetector);
       await tester.pumpAndSettle();
-      final vehicleScreen = find.byType(VehicleScreen);
-      expect(vehicleScreen, findsNothing);
+      final vehicleScreen = find.byType(VehicleRoute);
+      expect(vehicleScreen, findsOneWidget);
     });
   });
 }
