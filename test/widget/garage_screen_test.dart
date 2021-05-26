@@ -126,7 +126,7 @@ void main() {
       expect(textField, findsOneWidget);
     });
 
-    testWidgets('ElevatedButton text', (WidgetTester tester) async {
+    testWidgets('ElevatedButton text and Padding', (WidgetTester tester) async {
       final _text = 'Add vehicle';
       final _padding = 8.0;
       await tester.pumpWidget(_frontLayer);
