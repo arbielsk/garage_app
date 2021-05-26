@@ -16,9 +16,9 @@ class NewVehicleStateEvent extends VehicleStateEvents {
 
 class UpdateVehicleStateEvent extends VehicleStateEvents {
   final String vin;
-  final VehicleState newVehicleState;
+  final VehicleState currentVehicleState;
 
-  UpdateVehicleStateEvent(this.vin, this.newVehicleState);
+  UpdateVehicleStateEvent(this.vin, this.currentVehicleState);
 }
 
 class SubscribeVehicleStateEvent extends VehicleStateEvents {

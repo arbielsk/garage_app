@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:garage_app/bloc/vehicle_bloc/vehicle_bloc_state.dart';
 import 'package:garage_app/bloc/vehicle_bloc/vehicle_state_events.dart';
+import 'package:garage_app/model/enum/lock_status.dart';
 import 'package:garage_app/model/vehicle_state.dart';
 
 import '../../repository/vehicle_state_repository.dart';
@@ -39,9 +40,13 @@ class VehicleBloc extends Bloc<VehicleStateEvents, VehicleBlocState> {
     }
     if (event is UpdateVehicleStateEvent) {
       try {
-        this.add(NewVehicleStateEvent(event.newVehicleState));
-        vehicleStateRepository.updateVehicleState(
-            event.vin, event.newVehicleState);
+        final newVehicleState = event.currentVehicleState.copyWith(
+            lockStatus:
+                event.currentVehicleState.lockStatus == LockStatus.LOCKED
+                    ? LockStatus.OPEN
+                    : LockStatus.LOCKED);
+        this.add(NewVehicleStateEvent(newVehicleState));
+        vehicleStateRepository.updateVehicleState(event.vin, newVehicleState);
       } catch (e) {
         yield Failed(e.toString());
       }
