@@ -55,40 +55,32 @@ class GarageScreen extends StatelessWidget {
           }
 
           if (state is LoadVehiclesFailState) {
-            return Container(
-                color: Colors.red,
-                child: Center(
-                  child: Text(state.errorMessage.toString()),
-                ));
+            _showSnackbarWithMessage(state.errorMessage.toString(), Colors.red);
           }
 
           if (state is AddVehicleSuccessState) {
-            WidgetsBinding.instance!.addPostFrameCallback((_) {
-              mainScaffoldMessengerKey.currentState!.showSnackBar(
-                new SnackBar(
-                  content: Text(
-                    'Vehicle with vin ${state.vin} has been successfully added',
-                  ),
-                  backgroundColor: Colors.green,
-                ),
-              );
-            });
+            _showSnackbarWithMessage(
+                'Vehicle with vin ${state.vin} has been successfully added',
+                Colors.green);
           }
           if (state is AddVehicleFailState) {
-            WidgetsBinding.instance!.addPostFrameCallback((_) {
-              mainScaffoldMessengerKey.currentState!.showSnackBar(
-                new SnackBar(
-                  content: Text(
-                    'Vehicle with vin ${state.vin} could not be added',
-                  ),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            });
+            _showSnackbarWithMessage(
+                'Vehicle with vin ${state.vin} could not be added', Colors.red);
           }
           return Container();
         },
       ),
     );
+  }
+
+  void _showSnackbarWithMessage(String message, Color backgroundColor) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      mainScaffoldMessengerKey.currentState!.showSnackBar(
+        new SnackBar(
+          content: Text(message),
+          backgroundColor: backgroundColor,
+        ),
+      );
+    });
   }
 }
