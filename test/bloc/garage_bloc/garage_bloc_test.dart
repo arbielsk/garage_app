@@ -18,6 +18,11 @@ void main() {
     final emptyVehicles = List<Vehicle>.empty();
     final errorMessage = 'Error';
     final error = Exception(errorMessage);
+    final vehicle = Vehicle.fromMap({
+      'vin': 'ASDF1ASDF2ASDF123',
+      'model': 'BMW 128ti',
+      'displayName': 'Vehicle 77',
+    });
 
     setUp(() {
       repo = MockGarageRepository();
@@ -110,6 +115,23 @@ void main() {
       verify: (_) {
         mockito.verify(repo.getOwnedVehicles()).called(2);
       },
+    );
+
+    blocTest(
+      'emits AddVehicleState when receiving an AddVehicleEvent',
+      build: () {
+        final result = [vehicle];
+        mockito.when(repo.addVehicle(vehicle)).thenAnswer((_) async => result);
+        return _initializeBloc();
+      },
+      skip: 2,
+      seed: () => LoadVehiclesSuccessState(emptyVehicles) as GarageBlocState,
+      act: (GarageBloc bloc) => bloc.add(AddVehicleEvent(vin: vehicle.vin)),
+      expect: () => [
+        AddVehicleState(),
+        AddVehicleSuccessState(vehicle: vehicle),
+      ],
+      verify: (_) => mockito.verify(repo.addVehicle(vehicle)).called(1),
     );
   });
 }
