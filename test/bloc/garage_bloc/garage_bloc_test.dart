@@ -6,7 +6,7 @@ import 'package:garage_app/bloc/garage_bloc/state.dart';
 import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/repository/garage_repository.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mockito/mockito.dart' as mockito;
 import 'garage_bloc_test.mocks.dart';
 
 @GenerateMocks([GarageRepository])
@@ -24,7 +24,9 @@ void main() {
     });
 
     GarageBloc _initializeBloc() {
-      when(repo.getOwnedVehicles()).thenAnswer((_) async => emptyVehicles);
+      mockito
+          .when(repo.getOwnedVehicles())
+          .thenAnswer((_) async => emptyVehicles);
       return bloc;
     }
 
@@ -40,7 +42,7 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(1);
+        mockito.verify(repo.getOwnedVehicles()).called(1);
       },
     );
 
@@ -55,14 +57,14 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        mockito.verify(repo.getOwnedVehicles()).called(2);
       },
     );
 
     blocTest(
       'emits LoadVehiclesState, LoadVehicleFailState when receiving exception from repository',
       build: () {
-        when(repo.getOwnedVehicles()).thenThrow(error);
+        mockito.when(repo.getOwnedVehicles()).thenThrow(error);
         return bloc;
       },
       skip: 2,
@@ -74,7 +76,7 @@ void main() {
         ),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        mockito.verify(repo.getOwnedVehicles()).called(2);
       },
     );
 
@@ -90,7 +92,7 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        mockito.verify(repo.getOwnedVehicles()).called(2);
       },
     );
 
@@ -105,7 +107,7 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        mockito.verify(repo.getOwnedVehicles()).called(2);
       },
     );
   });

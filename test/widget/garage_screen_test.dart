@@ -150,12 +150,5 @@ void main() {
       final containerSize = tester.getSize(textContainer);
       expect(containerSize.width, elevatedButtonSize.width - _padding * 2);
     });
-
-    testWidgets('Test onTap', (WidgetTester tester) async {
-      await tester.pumpWidget(_widget);
-      await tester.pumpAndSettle();
-      final gestureDetector = find.byType(GestureDetector);
-      //expect(tester.tap(gestureDetector), );
-    });
   });
 }
