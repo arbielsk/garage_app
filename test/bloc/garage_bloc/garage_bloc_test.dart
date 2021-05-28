@@ -7,7 +7,6 @@ import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/repository/garage_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart' as mockito;
-
 import 'garage_bloc_test.mocks.dart';
 
 @GenerateMocks([GarageRepository])
