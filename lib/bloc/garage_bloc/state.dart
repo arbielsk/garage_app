@@ -116,3 +116,27 @@ class LoadVehiclesSuccessState extends GarageBlocState {
   @override
   int get hashCode => vehicles.hashCode;
 }
+
+class AddVehicleState extends GarageBlocState {
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is AddVehicleState;
+  }
+}
+
+class AddVehicleSuccessState extends GarageBlocState {
+  final Vehicle vehicle;
+
+  AddVehicleSuccessState({
+    required this.vehicle,
+  });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return (other is AddVehicleSuccessState) && (other.vehicle == this.vehicle);
+  }
+}

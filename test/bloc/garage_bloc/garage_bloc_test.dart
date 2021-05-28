@@ -6,7 +6,8 @@ import 'package:garage_app/bloc/garage_bloc/state.dart';
 import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/repository/garage_repository.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mockito/mockito.dart' as mockito;
+
 import 'garage_bloc_test.mocks.dart';
 
 @GenerateMocks([GarageRepository])
@@ -17,6 +18,11 @@ void main() {
     final emptyVehicles = List<Vehicle>.empty();
     final errorMessage = 'Error';
     final error = Exception(errorMessage);
+    final vehicle = Vehicle.fromMap({
+      'vin': 'ASDF1ASDF2ASDF123',
+      'model': 'BMW 128ti',
+      'displayName': 'Vehicle 77',
+    });
 
     setUp(() {
       repo = MockGarageRepository();
@@ -24,7 +30,9 @@ void main() {
     });
 
     GarageBloc _initializeBloc() {
-      when(repo.getOwnedVehicles()).thenAnswer((_) async => emptyVehicles);
+      mockito
+          .when(repo.getOwnedVehicles())
+          .thenAnswer((_) async => emptyVehicles);
       return bloc;
     }
 
@@ -40,7 +48,7 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(1);
+        mockito.verify(repo.getOwnedVehicles()).called(1);
       },
     );
 
@@ -55,14 +63,14 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        mockito.verify(repo.getOwnedVehicles()).called(2);
       },
     );
 
     blocTest(
       'emits LoadVehiclesState, LoadVehicleFailState when receiving exception from repository',
       build: () {
-        when(repo.getOwnedVehicles()).thenThrow(error);
+        mockito.when(repo.getOwnedVehicles()).thenThrow(error);
         return bloc;
       },
       skip: 2,
@@ -74,7 +82,7 @@ void main() {
         ),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        mockito.verify(repo.getOwnedVehicles()).called(2);
       },
     );
 
@@ -90,7 +98,7 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        mockito.verify(repo.getOwnedVehicles()).called(2);
       },
     );
 
@@ -105,8 +113,25 @@ void main() {
         LoadVehiclesSuccessState(emptyVehicles),
       ],
       verify: (_) {
-        verify(repo.getOwnedVehicles()).called(2);
+        mockito.verify(repo.getOwnedVehicles()).called(2);
       },
+    );
+
+    blocTest(
+      'emits AddVehicleState when receiving an AddVehicleEvent',
+      build: () {
+        final result = [vehicle];
+        mockito.when(repo.addVehicle(vehicle)).thenAnswer((_) async => result);
+        return _initializeBloc();
+      },
+      skip: 2,
+      seed: () => LoadVehiclesSuccessState(emptyVehicles) as GarageBlocState,
+      act: (GarageBloc bloc) => bloc.add(AddVehicleEvent(vin: vehicle.vin)),
+      expect: () => [
+        AddVehicleState(),
+        AddVehicleSuccessState(vehicle: vehicle),
+      ],
+      verify: (_) => mockito.verify(repo.addVehicle(vehicle)).called(1),
     );
   });
 }
