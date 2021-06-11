@@ -8,9 +8,9 @@ import 'package:garage_app/model/enum/lock_status.dart';
 import 'package:garage_app/model/vehicle.dart';
 import 'package:garage_app/widget/vehicle_list_item.dart';
 import 'package:garage_app/widget/vehicle_state_list_item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VehicleScreen extends StatelessWidget {
-  static const _title = 'Vehicle';
   static GlobalKey columnKey = GlobalKey();
 
   final Vehicle vehicle;
@@ -24,7 +24,7 @@ class VehicleScreen extends StatelessWidget {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(_title),
+          title: Text(AppLocalizations.of(context)!.vehicleText),
         ),
         body: Column(
           key: columnKey,

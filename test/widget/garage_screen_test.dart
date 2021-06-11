@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:garage_app/widget/add_vehicle_bar.dart';
+import 'package:garage_app/widget/custom_appbar.dart';
 import 'package:garage_app/widget/garage_screen.dart';
 import 'package:garage_app/widget/vehicle_list_item.dart';
 import 'package:garage_app/widget/vehicle_route.dart';
@@ -11,7 +12,7 @@ import '../test_util/material_widget_wrapper.dart';
 void main() {
   final _widget = MaterialWidgetWrapper(child: GarageRoute());
   group('AppBar', () {
-    testWidgets('Appbar text', (WidgetTester tester) async {
+    testWidgets('Appbar text EN', (WidgetTester tester) async {
       final text = 'Garage';
       await tester.pumpWidget(_widget);
       await tester.pumpAndSettle();
@@ -26,6 +27,32 @@ void main() {
       await tester.pumpAndSettle();
       final appBar = find.byType(AppBar);
       expect(tester.firstWidget<AppBar>(appBar).backgroundColor, color);
+    });
+
+    testWidgets('Appbar text DE', (WidgetTester tester) async {
+      final _widgetDE = MaterialWidgetWrapper(
+        child: GarageRoute(),
+        selectedLocale: Locale('de'),
+      );
+      final text = 'Garage';
+      await tester.pumpWidget(_widgetDE);
+      await tester.pumpAndSettle();
+
+      final appBar = find.text(text);
+      expect(appBar, findsOneWidget);
+    });
+
+    testWidgets('Appbar text RO', (WidgetTester tester) async {
+      final _widgetRO = MaterialWidgetWrapper(
+        child: GarageRoute(),
+        selectedLocale: Locale('ro'),
+      );
+      final text = 'Garaj';
+      await tester.pumpWidget(_widgetRO);
+      await tester.pumpAndSettle();
+
+      final appBar = find.text(text);
+      expect(appBar, findsOneWidget);
     });
   });
 
@@ -149,28 +176,17 @@ void main() {
       expect(textField, findsOneWidget);
     });
 
-    testWidgets('ElevatedButton text', (WidgetTester tester) async {
-      final _text = 'Add vehicle';
-      final _padding = 8.0;
+    testWidgets('ElevatedButton padding', (WidgetTester tester) async {
+      final _padding = EdgeInsets.all(8.0);
       await tester.pumpWidget(_frontLayer);
       await tester.pumpAndSettle();
       final frontLayer = find.byType(AddVehicleBar);
 
-      final elevatedButton = find.descendant(
-          of: frontLayer, matching: find.byType(ElevatedButton));
+      final elevatedButtonPadding =
+          find.descendant(of: frontLayer, matching: find.byType(Padding));
 
-      final elevatedButtonText =
-          find.descendant(of: elevatedButton, matching: find.byType(Text));
-
-      expect(tester.firstWidget<Text>(elevatedButtonText).data, _text);
-
-      // final elevatedButtonSize = tester.getSize(elevatedButton);
-
-      // final textContainer =
-      //     find.descendant(of: elevatedButton, matching: find.byType(Text));
-      // final containerSize = tester.getSize(textContainer);
-      // expect(containerSize.width, elevatedButtonSize.width - _padding * 2);
-      // expect(containerSize.height, elevatedButtonSize.height - _padding * 2);
+      expect(
+          tester.firstWidget<Padding>(elevatedButtonPadding).padding, _padding);
     });
   });
 
@@ -227,6 +243,25 @@ void main() {
               .firstWidget<AnimatedOpacity>(find.byType(AnimatedOpacity))
               .opacity,
           0);
+    });
+
+    testWidgets(
+        'Tapping to the AppBar the FAB will be visible, and he AddVehicleBar should be invisible',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(_widget);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(CustomAppBar));
+      await tester.pumpAndSettle();
+      expect(
+          tester
+              .firstWidget<AnimatedOpacity>(find.byType(AnimatedOpacity))
+              .opacity,
+          1);
+      final double addVehicleBarHeight = 0;
+      final addVehicleBarSize = tester.getSize(find.byType(AddVehicleBar));
+      expect(addVehicleBarSize.height, addVehicleBarHeight);
     });
   });
 }

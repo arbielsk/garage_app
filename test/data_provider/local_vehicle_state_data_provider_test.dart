@@ -2,19 +2,22 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:garage_app/data_provider/local_vehicle_state_data_provider.dart';
+import 'package:garage_app/model/enum/ignition_status.dart';
+import 'package:garage_app/model/enum/lock_status.dart';
+import 'package:garage_app/model/enum/motor_status.dart';
 
 main() {
   late LocalVehicleStateDataProvider provider;
   final vin = 'ASDF1ASDF2ASDF341';
   final vehicleState = {
-    'ignitionStatus': 'OFF',
-    'lockStatus': 'LOCKED',
-    'engineStatus': 'OFF',
+    'ignitionStatus': IgnitionStatus.OFF.toString(),
+    'lockStatus': LockStatus.LOCKED.toString(),
+    'engineStatus': EngineStatus.OFF.toString(),
   };
   final newVehicleState = {
-    'ignitionStatus': 'OFF',
-    'lockStatus': 'OPEN',
-    'engineStatus': 'OFF'
+    'ignitionStatus': IgnitionStatus.OFF.toString(),
+    'lockStatus': LockStatus.OPEN.toString(),
+    'engineStatus': EngineStatus.OFF.toString(),
   };
   setUp(() {
     provider = LocalVehicleStateDataProvider();

@@ -14,7 +14,7 @@ class VehicleStateListItem extends StatelessWidget {
       child: Center(
         child: Text(
           stateVal,
-          style: textTheme.subtitle1,
+          style: textTheme.subtitle2,
           textAlign: TextAlign.center,
         ),
       ),

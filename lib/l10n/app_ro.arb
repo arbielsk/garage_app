@@ -1,0 +1,9 @@
+{
+    "language":"Română",
+    "@language":{
+        "description":"Limba actuală"
+    },
+    "garageText":"Garaj",
+
+    "vehicleText":"Vehicul"
+}

@@ -27,22 +27,22 @@ class VehicleState {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, String> toMap() {
     return {
       'ignitionStatus': ignitionStatus.toString(),
       'lockStatus': lockStatus.toString(),
-      'motorStatus': engineStatus.toString(),
+      'engineStatus': engineStatus.toString(),
     };
   }
 
   factory VehicleState.fromMap(Map<String, dynamic> map) {
     return VehicleState(
-      ignitionStatus: IgnitionStatus.values.firstWhere(
-          (e) => e.toString() == 'IgnitionStatus.' + map['ignitionStatus']),
+      ignitionStatus: IgnitionStatus.values
+          .firstWhere((e) => e.toString() == map['ignitionStatus']),
       lockStatus: LockStatus.values
-          .firstWhere((e) => e.toString() == 'LockStatus.' + map['lockStatus']),
-      engineStatus: EngineStatus.values.firstWhere(
-          (e) => e.toString() == 'EngineStatus.' + map['engineStatus']),
+          .firstWhere((e) => e.toString() == map['lockStatus']),
+      engineStatus: EngineStatus.values
+          .firstWhere((e) => e.toString() == map['engineStatus']),
     );
   }
 

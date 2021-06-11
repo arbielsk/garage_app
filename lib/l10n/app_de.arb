@@ -1,0 +1,10 @@
+{
+    "language":"Deutsch",
+    "@language":{
+        "description":"Aktuelle Sprache"
+    },
+
+    "garageText":"Garage",
+
+    "vehicleText":"Fahrzeug"
+}
